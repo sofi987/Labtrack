@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LabTrack: Know Your Report Status | IC26-03-10</title>
+<meta name="description" content="LabTrack is a status tracker that tells patients when their lab report is ready. Team submission for IC26-03-10, Innovators Conclave 2026.">
+<style>
+:root{--midnight:#0A2642;--pink:#ED0096;--violet:#7D58F5;--jade:#1CBA7D;--cloud:#0AB5F0;--pollen:#FAC203;--parch:#F7F7ED;--n10:#F3F3F3;--grey:#4a566b;--border:#dde2ea}
+*{box-sizing:border-box}html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{margin:0;font-family:"Helvetica Neue",Arial,system-ui,sans-serif;color:var(--midnight);background:var(--n10);line-height:1.6;overflow-x:hidden}
+a{color:inherit}.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+h1,h2{text-transform:uppercase;font-weight:800;line-height:1.03;letter-spacing:-.02em;margin:0}h2{font-size:clamp(1.9rem,4.8vw,3.6rem);margin-bottom:20px}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em}.w>span{display:inline-block}
+.eyebrow{font-size:.95rem;font-weight:800;text-transform:uppercase;color:var(--pink);margin:0 0 14px;letter-spacing:.06em}
+p.body{max-width:800px;font-size:1.1rem;margin:0}
+header.site{position:sticky;top:0;z-index:100;background:var(--midnight);color:#fff}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;max-width:1400px;margin:0 auto}
+.brand{font-weight:800;text-decoration:none;color:#fff}.brand span{color:var(--pink)}
+nav ul{list-style:none;display:flex;gap:6px;margin:0;padding:0}nav a{display:block;padding:8px 11px;text-decoration:none;font-size:.9rem;font-weight:600;color:#fff;position:relative}
+nav a::after{content:"";position:absolute;left:11px;right:11px;bottom:2px;height:2px;background:var(--pink);transform:scaleX(0);transform-origin:0 50%;transition:transform .35s}nav a:hover::after{transform:scaleX(1)}
+.menu-btn{display:none;background:none;border:1px solid #4a566b;color:#fff;border-radius:20px;padding:6px 14px;font:inherit;cursor:pointer}
+@media(max-width:960px){.menu-btn{display:block}nav{position:absolute;top:100%;left:0;right:0;background:var(--midnight);display:none}nav.open{display:block}nav ul{flex-direction:column;padding:12px 28px 20px}}
+.btn{position:relative;overflow:hidden;z-index:0;background:var(--pink);color:#fff;border:0;padding:13px 28px;font-weight:700;font-size:1rem;border-radius:40px;cursor:pointer;text-decoration:none;display:inline-block;font-family:inherit}
+.btn::before{content:"";position:absolute;inset:0;background:var(--violet);transform:translateX(-101%);transition:transform .4s;z-index:-1}.btn:hover::before{transform:none}
+.btn.ghost{background:transparent;border:2px solid #fff;margin-left:8px}
+.hero{position:relative;overflow:hidden;background:var(--midnight);color:#fff;min-height:calc(100vh - 62px);display:flex;align-items:center;padding:80px 0}
+.par{position:absolute;inset:-10% 0;pointer-events:none}.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;animation:fl 12s ease-in-out infinite alternate}
+.b1{width:520px;height:520px;background:var(--pink);top:0;right:-80px}.b2{width:480px;height:480px;background:var(--violet);bottom:0;left:-100px;animation-delay:-6s}.b3{width:300px;height:300px;background:var(--cloud);top:35%;left:48%;opacity:.35;animation-delay:-3s}
+@keyframes fl{to{transform:translate(60px,-50px) scale(1.15)}}
+.hero-in{position:relative;z-index:2}.pill{display:inline-block;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(255,255,255,.35);border-radius:40px;padding:6px 16px;margin-bottom:22px}
+.hero h1{font-size:clamp(2.4rem,7vw,6rem);max-width:980px;margin-bottom:22px}.hero h1 .w:nth-child(3n+2)>span{color:var(--pink)}
+.lead{font-size:1.2rem;max-width:660px;margin:0 0 28px;color:#dbe6f3}
+.strip{display:flex;flex-wrap:wrap;gap:clamp(24px,5vw,60px);margin-top:50px}.strip div{max-width:210px}.num{display:block;font-size:3rem;font-weight:800;line-height:1;color:var(--jade)}.strip small{color:#dbe6f3}
+.dark{background:var(--midnight);color:#fff}
+.card{background:#fff;color:var(--midnight);padding:24px;border-top:6px solid var(--jade)}.card:nth-child(2){border-top-color:var(--pink)}.card:nth-child(3){border-top-color:var(--cloud)}.card h3{margin:0 0 6px;font-size:1.15rem}.card p{margin:0;color:var(--grey)}
+.grid3{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:34px}
+#problem{position:relative;overflow:hidden;padding:110px 0}.ch-ring{position:absolute;right:-10%;top:10%;width:min(46vw,620px);opacity:.9;pointer-events:none}#problem .wrap{position:relative;z-index:2}
+.box{background:rgba(255,255,255,.08);border-left:6px solid var(--pink);padding:18px 24px;margin-top:28px;max-width:800px}.box h3{margin:0 0 4px}.box p{margin:0;color:#dbe6f3}
+#solution{background:var(--n10);padding:90px 0;min-height:100vh;display:flex;align-items:center}
+ul.cs{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:34px}@media(min-width:900px){ul.cs{grid-template-columns:repeat(4,1fr);gap:50px}}
+.ci{text-align:left}.ci svg{width:100%;max-width:150px;aspect-ratio:1;display:block;margin-bottom:14px}.ci h3{margin:0 0 6px;font-size:1.2rem;text-transform:uppercase}.ci p{margin:0;color:var(--grey);font-size:.98rem}
+.spin{animation:spin 24s linear infinite;transform-origin:50px 50px}.ci:nth-child(even) .spin{animation-direction:reverse}@keyframes spin{to{transform:rotate(360deg)}}
+.arch{background:var(--n10);padding-top:20px}.arch-clip{height:min(80vh,760px);overflow:hidden;background:linear-gradient(160deg,var(--pink),var(--violet));display:flex;align-items:flex-end;justify-content:center;clip-path:inset(0 30% 0 30% round 50vw 50vw 0 0)}.arch-clip svg{width:min(480px,80%);display:block;transform-origin:50% 100%}
+#evidence{background:var(--parch);padding:100px 0}.tw{overflow-x:auto;margin-top:30px}
+table{width:100%;border-collapse:collapse;background:#fff;min-width:620px}th,td{text-align:left;padding:15px 18px;border-bottom:1px solid var(--border);vertical-align:top;font-size:.97rem}th{background:var(--midnight);color:#fff}tr:hover td{background:#fbeaf4}td.metric{font-weight:800;color:var(--pink)}
+#demo{background:var(--violet);color:#fff;padding:100px 0}#demo .body{color:#eee9ff}
+.demo{display:grid;gap:22px;grid-template-columns:1fr 1fr;margin-top:34px}@media(max-width:760px){.demo{grid-template-columns:1fr}}
+.panel{background:#fff;color:var(--midnight);padding:26px}.panel h3{margin:0 0 4px;font-size:1.2rem}.panel>p{margin:0 0 16px;color:var(--grey);font-size:.95rem}
+label{display:block;font-size:.88rem;color:var(--grey);margin-bottom:4px}input{width:100%;padding:12px 18px;border-radius:30px;border:2px solid var(--border);background:var(--n10);color:var(--midnight);font:inherit;margin-bottom:14px}input:focus{outline:0;border-color:var(--pink)}
+button.pri{background:var(--pink);color:#fff;border:0;border-radius:30px;padding:11px 24px;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s,background .3s}button.pri:hover{transform:translateY(-2px);background:var(--midnight)}button.small{padding:5px 14px;font-size:.85rem;margin-left:8px}
+.msg{margin-top:16px;padding:16px;background:var(--n10);border-left:5px solid var(--pink);min-height:3.4rem}.msg.flash{animation:pop .5s ease}@keyframes pop{0%{transform:scale(.97);opacity:.4}100%{transform:none;opacity:1}}
+.queue{margin-top:14px;display:grid;gap:8px}.qrow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 14px;background:var(--n10);font-size:.92rem;flex-wrap:wrap}
+.tag{font-size:.78rem;padding:3px 12px;border-radius:20px;border:1px solid var(--border);color:var(--grey)}.tag.ready{border-color:var(--jade);color:var(--jade);font-weight:700}.tag.wait{border-color:#c98d00;color:#a37300;font-weight:700}.note{font-size:.84rem;color:var(--grey);margin:12px 0 0}
+#privacy{padding:110px 0}ul.pg{list-style:none;margin:40px 0 0;padding:0;display:grid;gap:34px 28px;grid-template-columns:1fr}@media(min-width:620px){ul.pg{grid-template-columns:1fr 1fr}}@media(min-width:1000px){ul.pg{grid-template-columns:repeat(3,1fr)}}
+.pl h3{margin:0;font-size:1.35rem;text-transform:uppercase}.pl .bar2{height:3px;background:#fff;margin:14px 0}.pl p{margin:0;color:#dbe6f3}
+#outcome{background:var(--cloud);position:relative;overflow:hidden;padding:110px 0}.shape{position:absolute;top:30%;left:68%;width:min(90vh,720px);aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none}.shape svg{width:100%;height:100%}#outcome .wrap{position:relative;z-index:2}
+ul.os{list-style:none;margin:40px 0;padding:0;display:grid;gap:30px;grid-template-columns:1fr 1fr}@media(min-width:900px){ul.os{grid-template-columns:repeat(4,1fr)}}
+.os b{display:block;font-size:clamp(3rem,7.5vw,5.8rem);font-weight:800;line-height:1;color:#fff}.os b sup{font-size:.4em}.os span{font-weight:700;color:#000;display:block;margin-top:6px}.os small{display:block;color:#073a52}
+.pinh{background:var(--parch);position:relative;overflow:hidden;padding:100px 0}.pin-top{max-width:800px;margin:0 auto 40px;text-align:center;padding:0 28px}.pin-top .body{margin:0 auto}
+.hi{text-align:center;max-width:600px;margin:0 auto 40px;padding:0 20px}.hi h2{font-size:clamp(1.9rem,5vw,3.6rem);margin-bottom:8px}.hi p{margin:0;font-size:1.15rem}
+.lft,.rgt{display:none}
+@media(min-width:900px){.js .pinh{height:100vh;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.js .pin-top{position:absolute;top:70px;left:0;right:0;margin:0 auto}.js .hi{position:absolute;visibility:hidden;margin:0;top:50%;left:0;right:0;margin:-60px auto 0}
+.lft,.rgt{display:block;position:absolute;top:50%;width:30vw;max-width:440px;transform:translateY(-50%)}.lft{left:-6vw}.rgt{right:-6vw}.lft svg,.rgt svg{width:100%;display:block}}
+.dots{transform-origin:50% 50%}
+#faq{background:#fff;padding:100px 0}details{background:var(--n10);border-top:5px solid var(--jade);padding:18px 24px;margin-top:14px}details:nth-of-type(2){border-top-color:var(--pink)}details:nth-of-type(3){border-top-color:var(--cloud)}details:nth-of-type(4){border-top-color:var(--violet)}
+summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;font-size:1.1rem}summary::after{content:"+";color:var(--pink);font-weight:800}details[open] summary::after{content:"–"}details p{margin:10px 0 0;color:var(--grey)}
+footer{background:var(--midnight);color:#cfd8e6;padding:70px 0 36px;overflow:hidden}footer .wrap::before{content:"LabTrack";display:block;font-size:clamp(3.4rem,13vw,10rem);font-weight:800;line-height:1;margin-bottom:30px;color:var(--pink)}
+.fg{display:grid;gap:30px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}footer h4{margin:0 0 8px;color:#fff}footer ul{list-style:none;padding:0;margin:0;display:grid;gap:6px}footer a{text-decoration:none;opacity:.85}footer a:hover{opacity:1;text-decoration:underline}.copy{opacity:.6;margin-top:36px;font-size:.85rem}
+.consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:200;max-width:720px;margin:0 auto;background:#fff;border-top:5px solid var(--pink);padding:16px 20px;box-shadow:0 20px 50px -20px rgba(0,0,0,.45);display:flex;gap:16px;align-items:center;flex-wrap:wrap;font-size:.92rem}.consent[hidden]{display:none}.consent p{margin:0;flex:1;min-width:220px}
+.js .rv{opacity:0;transform:translateY(40px)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}.js .rv{opacity:1;transform:none}}
+</style></head><body>
+<header class="site"><div class="bar"><a class="brand" href="#top">IC26-03-10 <span>&bull; LABTRACK</span></a>
+<button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainnav">Menu</button>
+<nav id="mainnav" aria-label="Main"><ul><li><a href="#problem">Problem</a></li><li><a href="#solution">Solution</a></li><li><a href="#evidence">Evidence</a></li><li><a href="#demo">Demo</a></li><li><a href="#privacy">Privacy</a></li><li><a href="#outcome">Outcome</a></li><li><a href="#ministry">MoHFW</a></li><li><a href="#faq">FAQ</a></li></ul></nav></div></header>
+<main id="top">
+<section class="hero"><div class="par"><div class="blob b1"></div><div class="blob b3"></div></div><div class="par"><div class="blob b2"></div></div>
+<div class="wrap hero-in"><div class="pill rv0">Innovators Conclave 2026 &bull; Open Innovation &bull; IC26-03-10</div>
+<h1 data-words>LabTrack: Know Your Report Status</h1>
+<p class="lead rv0">A simple SMS and WhatsApp status tracker that tells patients when their lab report is ready, so they stop making wasted trips to the lab counter.</p>
+<div class="rv0"><a class="btn" href="#demo">Try the working demo</a><a class="btn ghost" href="#problem">Read the project</a></div>
+<div class="strip rv0"><div><span class="num" data-count="4">4</span><small>Hours average wait today (baseline, to verify)</small></div><div><span class="num" data-count="30">30</span><small>% fewer status-only visits (target)</small></div><div><span class="num" data-count="3">3</span><small>Month pilot</small></div></div></div></section>
+
+<section class="dark" id="problem"><div class="ch-ring"><svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#7D58F5" stroke-width="3"><circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="36"/><circle cx="50" cy="50" r="26"/><circle cx="50" cy="50" r="16"/></g></svg></div><div class="wrap">
+<p class="eyebrow">Problem Description</p><h2 data-words>Patients make repeat trips just to ask if their report is ready</h2>
+<p class="body ln">In many public hospital outpatient departments, patients who have given a sample must return to the lab counter to ask if the report is ready. Staff are busy, queues build up, and many people make a second trip for nothing. Elderly patients and daily-wage workers lose half a day of pay or miss their appointments.</p>
+<div class="box rv"><h3>Our problem title</h3><p>Delayed and repeated trips for lab report status in public outpatient diagnostics.</p></div>
+<div class="grid3"><div class="card rv"><h3>Domain</h3><p>Diagnostics workflow and healthcare access</p></div><div class="card rv"><h3>Who is affected</h3><p>Outpatients who have given a sample, their caregivers, and lab staff who answer status queries</p></div><div class="card rv"><h3>Why it matters</h3><p>Wasted trips cost patients time and wages, and take staff time away from testing</p></div></div></div></section>
+
+<section id="solution"><div class="wrap"><p class="eyebrow">Our Solution</p><h2 data-words>Status messages instead of counter queues</h2>
+<p class="body">When a sample is registered, the patient gets a token ID by SMS or WhatsApp. When the lab marks the report as ready, the patient gets a message saying where and when to collect it. No results, diagnoses, or test names are sent.</p>
+<ul class="cs"><li class="ci"><svg viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><circle cx="50" cy="50" r="38" fill="none" stroke="#1CBA7D" stroke-width="14" stroke-dasharray="26 8" stroke-linecap="round"/></g></svg><h3>Sample registered</h3><p>Lab staff enter the patient's phone number and token ID.</p></li><li class="ci"><svg viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><circle cx="50" cy="50" r="38" fill="none" stroke="#ED0096" stroke-width="11" stroke-dasharray="190 49" stroke-linecap="round"/></g></svg><h3>Status sent</h3><p>Patient receives &ldquo;Your sample is in process&rdquo; by SMS or WhatsApp.</p></li><li class="ci"><svg viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><circle cx="50" cy="50" r="38" fill="none" stroke="#0AB5F0" stroke-width="12" stroke-dasharray="0 29.85" stroke-linecap="round"/></g></svg><h3>Report ready</h3><p>Lab marks it ready. Patient gets &ldquo;Report ready, collect at counter 3.&rdquo;</p></li><li class="ci"><svg viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><g fill="none" stroke="#7D58F5" stroke-width="4"><circle cx="50" cy="50" r="42"/><circle cx="50" cy="50" r="32"/><circle cx="50" cy="50" r="22"/><circle cx="50" cy="50" r="12"/></g></g></svg><h3>Collected</h3><p>Patient collects the report. The token closes and the phone number is deleted.</p></li></ul></div></section>
+<section class="arch"><div class="arch-clip"><svg viewBox="0 0 400 500" role="img" aria-label="A phone showing a message that a lab report is ready"><rect x="100" y="70" width="200" height="460" rx="32" fill="#fff" stroke="#0A2642" stroke-width="7"/><rect x="170" y="86" width="60" height="9" rx="4" fill="#0A2642"/><rect x="122" y="140" width="156" height="78" rx="16" fill="#1CBA7D"/><path d="M142 180 l14 14 l28 -30" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="196" y="186" font-size="17" font-weight="700" fill="#fff" font-family="Arial">Report ready</text><rect x="122" y="236" width="110" height="52" rx="14" fill="#e6ebf2"/><rect x="122" y="306" width="140" height="52" rx="14" fill="#e6ebf2"/></svg></div></section>
+
+<section id="evidence"><div class="wrap"><p class="eyebrow rv">Problem Evidence</p><h2 data-words>Who faces the problem and why it matters</h2>
+<p class="body rv">Before the pilot, the team will collect this evidence at one district hospital lab counter. The baseline figures on this site are targets to be confirmed by this work.</p>
+<div class="tw rv"><table><tr><th>Evidence</th><th>Method and sample</th><th>What we look for</th></tr>
+<tr><td>Timed counter observation</td><td>50 visits over 2 weeks, one district hospital</td><td>Time from sample to collection, and number of status-only queries</td></tr>
+<tr><td>Patient survey</td><td>30 patients who returned for a report</td><td>Extra trips made, time and wages lost, and phone access (SMS or WhatsApp)</td></tr>
+<tr><td>Staff interview</td><td>5 lab staff</td><td>Share of time spent answering status questions</td></tr>
+<tr><td>Policy review</td><td>Published NHM and MoHFW guidance</td><td>Confirms patient messaging fits public facility rules</td></tr></table></div></div></section>
+
+<section id="demo"><div class="wrap"><p class="eyebrow rv" style="color:#fff">Proof of Concept</p><h2 data-words>Working demo: try both sides</h2>
+<p class="body rv">This demo runs in your browser with simulated patients. It shows how lab staff update a status and how a patient sees it. It does not connect to any hospital system or send real messages.</p>
+<div class="demo"><div class="panel rv"><h3>Lab staff view</h3><p>Register a sample, then mark it ready.</p><label for="phone">Patient phone (demo only, 10 digits)</label><input id="phone" value="9800000001" maxlength="10" inputmode="numeric"><button class="pri" id="register">Register sample</button><div class="queue" id="queue"></div></div>
+<div class="panel rv"><h3>Patient view</h3><p>Enter your token ID to check your report status.</p><label for="token">Token ID</label><input id="token" placeholder="e.g. LT-1001"><button class="pri" id="check">Check status</button><div class="msg" id="msg" aria-live="polite">Your status message will appear here.</div><p class="note">Messages contain status only. No results are shown.</p></div></div></div></section>
+
+<section class="dark" id="privacy"><div class="wrap"><p class="eyebrow">Privacy and Safety</p><h2 data-words>Protecting people's information</h2>
+<ul class="pg">
+<li class="pl"><h3>Minimum data</h3><div class="bar2"></div><p>Only phone number, token ID, and status are stored. No name, diagnosis, or test type is sent.</p></li>
+<li class="pl"><h3>Deletion</h3><div class="bar2"></div><p>Phone numbers are deleted 7 days after collection. Token records are anonymised after 30 days.</p></li>
+<li class="pl"><h3>Consent</h3><div class="bar2"></div><p>Patients opt in by replying &ldquo;YES&rdquo; to the first message, and can reply &ldquo;STOP&rdquo; at any time.</p></li>
+<li class="pl"><h3>No medical claims</h3><div class="bar2"></div><p>Messages describe report status only. They never state results or what they mean.</p></li>
+<li class="pl"><h3>Human responsibility</h3><div class="bar2"></div><p>Doctors and lab staff remain responsible for all results. Urgent concerns go to the lab or a doctor.</p></li>
+<li class="pl"><h3>Security</h3><div class="bar2"></div><p>Data is held on a hospital-approved server with password access and an audit log of status changes.</p></li></ul></div></section>
+
+<section id="outcome"><div class="shape"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="#fff" opacity=".28"/><circle cx="50" cy="50" r="30" fill="#fff" opacity=".35"/></svg></div><div class="wrap"><p class="eyebrow rv" style="color:#fff">Measurable Outcome</p><h2 data-words>How we will measure success</h2>
+<p class="body rv">We will run a 3-month pilot at one district hospital and compare results with the 2-week baseline observation. These are targets, not results.</p>
+<ul class="os"><li class="rv"><b><i class="num2" data-count="2.5" data-dec="1">2.5</i><sup>h</sup></b><span>Average wait, sample to collection</span><small>Target. Baseline 4 hours</small></li>
+<li class="rv"><b><i class="num2" data-count="21">21</i></b><span>Status-only visits per 100 patients</span><small>Target, 30% fewer. Baseline 30</small></li>
+<li class="rv"><b><i class="num2" data-count="80">80</i><sup>%</sup></b><span>Samples with status messages sent</span><small>Target. Baseline 0%</small></li>
+<li class="rv"><b><i class="num2" data-count="4" data-dec="1">4.0</i></b><span>Patient satisfaction (1 to 5)</span><small>Target. Baseline 2.8</small></li></ul>
+<div class="tw rv"><table><tr><th>Measure</th><th>Baseline</th><th>Target after 3 months</th><th>How it is measured</th></tr>
+<tr><td>Average wait from sample to collection</td><td>4 hours</td><td class="metric">2.5 hours</td><td>Timed sample of 50 visits</td></tr>
+<tr><td>Status-only counter visits</td><td>30 per 100 patients</td><td class="metric">21 per 100 patients (30% fewer)</td><td>Weekly counter log</td></tr>
+<tr><td>Samples with status messages sent</td><td>0%</td><td class="metric">80%</td><td>Message delivery log</td></tr>
+<tr><td>Patient satisfaction (1 to 5)</td><td>2.8</td><td class="metric">4.0</td><td>Exit survey of 50 patients</td></tr></table></div></div></section>
+
+<section class="pinh" id="ministry"><div class="lft"><svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#ED0096" stroke-width="3"><circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="36"/><circle cx="50" cy="50" r="26"/><circle cx="50" cy="50" r="16"/></g></svg></div><div class="rgt"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="dots" cx="50" cy="50" r="40" fill="none" stroke="#ED0096" stroke-width="9" stroke-dasharray="0 15.7" stroke-linecap="round"/></svg></div>
+<div class="pin-top"><p class="eyebrow">Ministry Alignment</p><p class="body">LabTrack supports the goals of MoHFW and the National Health Mission by making public diagnostics easier to use, reducing unnecessary trips for patients, and freeing staff time for testing.</p></div>
+<div class="hi"><h2>Ministry</h2><p>Ministry of Health &amp; Family Welfare (MoHFW)</p></div>
+<div class="hi"><h2>Responsible department</h2><p>National Health Mission, district health office and hospital lab services</p></div>
+<div class="hi"><h2>Public impact</h2><p>Fewer wasted trips for patients, lower queue load at counters, and better use of lab staff time</p></div></section>
+
+<section id="faq"><div class="wrap"><p class="eyebrow rv">FAQ</p><h2 data-words>Common questions</h2>
+<details class="rv"><summary>Does LabTrack show test results?</summary><p>No. It only shares whether a report is in process or ready, and where to collect it.</p></details>
+<details class="rv"><summary>What if a patient has no smartphone?</summary><p>SMS works on basic phones. WhatsApp is optional, and counter staff can still help patients who prefer not to use messages.</p></details>
+<details class="rv"><summary>Can patients stop receiving messages?</summary><p>Yes. Patients can reply STOP at any time and their phone number is removed from the messaging list.</p></details>
+<details class="rv"><summary>Who is responsible for the medical information?</summary><p>Doctors and lab staff remain responsible for all results. LabTrack does not interpret or advise on results.</p></details></div></section>
+</main>
+<footer><div class="wrap"><div class="fg"><div><h4>LabTrack</h4><p style="margin:0">A status tracker for public outpatient lab reports.</p></div>
+<div><h4>Project</h4><ul><li><a href="#problem">Problem</a></li><li><a href="#solution">Solution</a></li><li><a href="#demo">Demo</a></li><li><a href="#outcome">Outcome</a></li></ul></div>
+<div><h4>Responsible</h4><ul><li><a href="#ministry">MoHFW alignment</a></li><li><a href="#privacy">Privacy and safety</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div><h4>Event</h4><ul><li>Innovators Conclave 2026</li><li>Problem statement IC26-03-10</li><li>Team submission</li></ul></div></div>
+<p class="copy">&copy; 2026 LabTrack team. Prototype for demonstration only.</p></div></footer>
+<div class="consent" id="consent" role="dialog" aria-label="Privacy notice"><p>This demo does not use cookies or store data. It keeps everything in this page only until you close it.</p><button class="pri" id="consentOk">Got it</button></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script>
+const Q=s=>Array.from(document.querySelectorAll(s)),$=id=>document.getElementById(id);
+// Mobile menu
+const menuBtn=$("menuBtn"),nav=$("mainnav");
+menuBtn.addEventListener("click",()=>{const o=nav.classList.toggle("open");menuBtn.setAttribute("aria-expanded",String(o));});
+nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{nav.classList.remove("open");menuBtn.setAttribute("aria-expanded","false");}));
+$("consentOk").addEventListener("click",()=>{$("consent").hidden=true;});
+
+// ---------- Scroll animations (GSAP + ScrollTrigger + Lenis) ----------
+const G=window.gsap,HAS=!!(G&&window.ScrollTrigger);
+function words(el){el.innerHTML=el.textContent.trim().split(/\s+/).map(w=>`<span class="w"><span>${w}</span></span>`).join(" ");}
+Q("[data-words]").forEach(words);
+function count(el){const to=+el.dataset.count,d=+(el.dataset.dec||0),t0=performance.now();(function st(t){const p=Math.min(1,(t-t0)/1500);el.textContent=(to*(1-Math.pow(1-p,3))).toFixed(d);if(p<1)requestAnimationFrame(st);})(t0);}
+if(HAS&&!matchMedia("(prefers-reduced-motion: reduce)").matches){
+  document.documentElement.classList.add("js");G.registerPlugin(ScrollTrigger);
+  let lenis=null;if(window.Lenis){lenis=new Lenis();lenis.on("scroll",ScrollTrigger.update);G.ticker.add(t=>lenis.raf(t*1000));G.ticker.lagSmoothing(0);}
+  document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');if(!a||a.getAttribute("href").length<2)return;const tg=document.querySelector(a.getAttribute("href"));if(!tg)return;e.preventDefault();lenis?lenis.scrollTo(tg,{offset:-60}):tg.scrollIntoView({behavior:"smooth"});});
+  const wide=innerWidth>=900;
+  // Hero
+  G.from(".hero h1 .w>span",{yPercent:115,duration:1.1,stagger:.1,ease:"power4.out"});
+  G.from(".rv0",{y:24,opacity:0,duration:.9,delay:.5,stagger:.15,ease:"power3.out"});
+  G.to(".hero .par",{yPercent:i=>i?-12:20,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+  Q(".strip .num").forEach(el=>{el.textContent="0";ScrollTrigger.create({trigger:el,start:"top 98%",once:true,onEnter:()=>count(el)});});
+  // Problem: ring parallax, words, lines
+  G.fromTo(".ch-ring",{y:120,rotate:-20},{y:-160,rotate:25,ease:"none",scrollTrigger:{trigger:"#problem",start:"top bottom",end:"bottom top",scrub:true}});
+  G.timeline({scrollTrigger:{trigger:"#problem",start:"top 65%"}}).from("#problem .eyebrow",{y:20,opacity:0,duration:.6}).from("#problem h2 .w>span",{yPercent:115,stagger:.05,duration:.8,ease:"power4.out"},"<.1").from("#problem .ln",{y:16,opacity:0,duration:.8},"-=.3");
+  // Solution: rings roll in from the left while the page is pinned (wide screens)
+  const sol=G.timeline({scrollTrigger:{trigger:"#solution",start:wide?"top top":"top 70%",end:wide?"+=150%":undefined,pin:wide,scrub:wide?.6:false}});
+  sol.from("#solution .eyebrow",{y:20,opacity:0,duration:.6}).from("#solution h2 .w>span",{yPercent:115,stagger:.05,duration:.8,ease:"power4.out"},"<.1").from("#solution .body",{y:20,opacity:0,duration:.8},"-=.3")
+     .from(".ci svg",{x:i=>-(innerWidth*.5+i*260),rotate:-270,opacity:0,stagger:.3,duration:1,ease:"power2.out"}).from(".ci h3,.ci p",{y:20,opacity:0,stagger:.08,duration:.6},"<.5");
+  // Arch opens as you scroll
+  G.to(".arch-clip",{clipPath:"inset(0% 0% 0% 0% round 50vw 50vw 0 0)",ease:"none",scrollTrigger:{trigger:".arch",start:"top 85%",end:"top 5%",scrub:true}});
+  G.fromTo(".arch-clip svg",{scale:1.3},{scale:1,ease:"none",scrollTrigger:{trigger:".arch",start:"top 85%",end:"bottom 40%",scrub:true}});
+  // Word reveals for the other headings
+  ["#evidence","#demo","#privacy","#outcome","#faq"].forEach(s=>G.from(s+" h2 .w>span",{yPercent:115,stagger:.05,duration:.8,ease:"power4.out",scrollTrigger:{trigger:s,start:"top 70%"}}));
+  // Generic rise-in for cards, tables, panels
+  ScrollTrigger.batch(".rv",{start:"top 90%",once:true,onEnter:b=>G.to(b,{opacity:1,y:0,stagger:.12,duration:.9,ease:"power3.out"})});
+  // Privacy: bars grow, items rise
+  const pt={trigger:"#privacy .pg",start:"top 75%"};
+  G.from(".pl",{y:24,opacity:0,stagger:.12,duration:.8,scrollTrigger:pt});G.from(".pl .bar2",{scaleX:0,transformOrigin:"0 50%",stagger:.12,duration:1,ease:"power3.out",scrollTrigger:pt});
+  // Outcome: shape grows, numbers count up
+  G.fromTo(".shape",{scale:.4},{scale:1.15,ease:"none",scrollTrigger:{trigger:"#outcome",start:"top bottom",end:"bottom top",scrub:true}});
+  Q(".num2").forEach(el=>{const f=el.textContent;el.textContent="0";ScrollTrigger.create({trigger:el,start:"top 90%",once:true,onEnter:()=>count(el)});});
+  // Ministry: rings slide in from both sides, headings swap while pinned (wide screens)
+  if(wide){const hi=Q(".hi");const p=G.timeline({scrollTrigger:{trigger:"#ministry",start:"top top",end:"+=300%",pin:true,scrub:.6}});
+    p.fromTo(".lft",{xPercent:-80,autoAlpha:0},{xPercent:0,autoAlpha:1,duration:1}).fromTo(".rgt",{xPercent:80,autoAlpha:0},{xPercent:0,autoAlpha:1,duration:1},"<").to(".dots",{rotate:360,duration:hi.length*1.6+1,ease:"none"},0);
+    hi.forEach((el,i)=>{p.fromTo(el,{autoAlpha:0,y:60},{autoAlpha:1,y:0,duration:.6});if(i<hi.length-1)p.to(el,{autoAlpha:0,y:-60,duration:.6},"+=.5");});}
+}
+
+// ---------- Demo: in-memory only, simulated data ----------
+const samples=[];let counter=1000;const queue=$("queue"),msg=$("msg");
+function flash(el){el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}
+function render(){queue.innerHTML="";if(!samples.length){queue.innerHTML='<p class="note">No samples yet. Register one to start.</p>';return;}
+  samples.forEach(s=>{const row=document.createElement("div");row.className="qrow";const label=document.createElement("span");label.textContent=s.token+" ("+s.phone+")";
+    const right=document.createElement("span");const tag=document.createElement("span");tag.className="tag "+(s.ready?"ready":"wait");tag.textContent=s.ready?"Ready":"In process";right.appendChild(tag);
+    if(!s.ready){const b=document.createElement("button");b.className="pri small";b.textContent="Mark ready";b.onclick=()=>{s.ready=true;render();};right.appendChild(b);}
+    row.appendChild(label);row.appendChild(right);queue.appendChild(row);});}
+$("register").addEventListener("click",()=>{const phone=$("phone").value.trim();
+  if(!/^\d{10}$/.test(phone)){msg.textContent="Enter a 10-digit phone number to register.";flash(msg);return;}
+  counter+=1;const token="LT-"+counter;samples.push({token,phone:phone.slice(0,2)+"XXXXXX"+phone.slice(-2),ready:false});
+  msg.textContent="Registered "+token+'. Patient receives: "Your sample is in process."';flash(msg);render();});
+$("check").addEventListener("click",()=>{const t=$("token").value.trim().toUpperCase();const s=samples.find(x=>x.token===t);
+  if(!t)msg.textContent="Enter your token ID.";else if(!s)msg.textContent="Token not found. Check the ID on your receipt.";
+  else if(s.ready)msg.textContent="Report ready. Please collect at counter 3 during working hours.";else msg.textContent="Your sample is in process. We will message you when the report is ready.";flash(msg);});
+render();
+</script></body></html>
